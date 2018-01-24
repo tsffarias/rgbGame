@@ -7,56 +7,42 @@ var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
-var easyBtn = document.querySelector("#easyBtn");
-var hardBtn = document.querySelector("#hardBtn");
+var modeButtons = document.querySelectorAll(".mode");
 
+for(var i = 0; i < modeButtons.length; i++){
+	modeButtons[i].addEventListener("click", function(){
+		modeButtons[0].classList.remove("selected");
+		modeButtons[1].classList.remove("selected");
+		this.classList.add("selected");
+		
+		this.textContent === "Easy" ? numberOfSquares = 3: numberOfSquares = 6; 
+		reset();
+	});
+}
 
-
-easyBtn.addEventListener("click", function(){
-	hardBtn.classList.remove("selected");
-	easyBtn.classList.add("selected");
-
-	numberOfSquares = 3;
+function reset(){
 	colors = generateRandomColors(numberOfSquares);
 	pickedColor = pickColor();
 	colorDisplay.textContent = pickedColor;
+	resetButton.textContent = "New Colors";
+	messageDisplay.textContent = "";
+
 
 	for(var i = 0; i < square.length; i++){
 		if (colors[i]) {
-			square[i].style.backgroundColor = colors[i];	
+			square[i].style.display = "block";
+			square[i].style.backgroundColor = colors[i];
 		} else{
 			square[i].style.display = "none";
-		}		
-	}	
-});
-
-hardBtn.addEventListener("click", function(){
-	hardBtn.classList.add("selected");
-	easyBtn.classList.remove("selected");
-
-	numberOfSquares = 6;
-	colors = generateRandomColors(numberOfSquares);
-	pickedColor = pickColor();
-	colorDisplay.textContent = pickedColor;
-
-	for(var i = 0; i < square.length; i++){
-		if (colors[i]) {
-			square[i].style.backgroundColor = colors[i];	
-			square[i].style.display = "block";
-		}		
-	}	
-});
-
-resetButton.addEventListener("click", function(){
-	colors = generateRandomColors(6);
-	pickedColor = pickColor();
-	colorDisplay.textContent = pickedColor;
-
-	for(var i = 0; i < square.length; i++){
-		square[i].style.backgroundColor = colors[i];
+		}
 	}
 
 	h1.style.backgroundColor = "steelblue";
+}
+
+
+resetButton.addEventListener("click", function(){
+	reset();
 });
 
 
